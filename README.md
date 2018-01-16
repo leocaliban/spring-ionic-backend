@@ -1,5 +1,5 @@
-# Projeto Loja
-Implementação de um modelo conceitual baseado em um sistema de loja simples.
+# Aprimoração do projeto [Loja](https://github.com/leocaliban/projeto-loja)
+Expansão do projeto para uma aplicação baseada em ionic.
 
 ## Modelo Conceitual UML
 
