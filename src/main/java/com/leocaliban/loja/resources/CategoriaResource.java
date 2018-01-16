@@ -22,7 +22,7 @@ public class CategoriaResource {
 	private CategoriaService service;
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Long id) {
+	public ResponseEntity<Categoria> buscar(@PathVariable Long id) {
 		Categoria obj = service.buscar(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -31,11 +31,20 @@ public class CategoriaResource {
 	//@RequestBody converte json em java
 	public ResponseEntity<Void> salvar(@RequestBody Categoria obj){
 		obj = service.salvar(obj);
-		//Retorno da uri de sucesso ao criar
+		//Retorno da uri de sucesso ao criar 201
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
+	public ResponseEntity<Void> editar(@RequestBody Categoria obj, @PathVariable Long id){
+		obj.setId(id);
+		obj = service.editar(obj);
+		//Sucesso 204 não precisa de uri retorno 
+		return ResponseEntity.noContent().build();
+		
 	}
 
 }

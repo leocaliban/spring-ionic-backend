@@ -27,4 +27,10 @@ public class CategoriaService {
 		obj.setId(null);
 		return repository.save(obj);
 	}
+	
+	public Categoria editar(Categoria obj) {
+		//Verificação se o id existe
+		buscar(obj.getId());
+		return repository.save(obj);
+	}
 }
