@@ -12,6 +12,7 @@ public class ClienteService {
 
 	@Autowired
 	private ClienteRepository repository;
+	
 	public Cliente buscar(Long id) {
 		Cliente obj = repository.findOne(id);
 		if (obj == null) {

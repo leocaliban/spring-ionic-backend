@@ -21,4 +21,10 @@ public class CategoriaService {
 		}
 		return obj;
 	}
+	
+	public Categoria salvar(Categoria obj) {
+		//Garante que o objeto seja salvo como um novo e não como atualização 
+		obj.setId(null);
+		return repository.save(obj);
+	}
 }
