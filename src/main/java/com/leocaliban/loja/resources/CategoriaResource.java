@@ -1,6 +1,7 @@
 package com.leocaliban.loja.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +51,12 @@ public class CategoriaResource {
 	public ResponseEntity<Void> excluir(@PathVariable Long id) {
 		service.excluir(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<Categoria>> listarTodos() {
+		List<Categoria> categorias = service.listarTodos();
+		return ResponseEntity.ok().body(categorias);
 	}
 		
 }
