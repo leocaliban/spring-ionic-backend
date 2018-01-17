@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.leocaliban.loja.domain.Categoria;
@@ -50,5 +53,11 @@ public class CategoriaService {
 	
 	public List<Categoria> listarTodos(){
 		return repository.findAll();
+	}
+	
+	//Conv param - page, linesPerPage, orderBy, direction
+	public Page<Categoria> buscarPagina(Integer pagina, Integer linhasPorPagina, String ordenarPor, String direcao){
+		PageRequest pageRequest = new PageRequest(pagina, linhasPorPagina, Direction.valueOf(direcao), ordenarPor);
+		return repository.findAll(pageRequest);
 	}
 }
