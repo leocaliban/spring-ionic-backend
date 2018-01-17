@@ -1,10 +1,12 @@
 package com.leocaliban.loja.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.leocaliban.loja.domain.Categoria;
 import com.leocaliban.loja.repositories.CategoriaRepository;
+import com.leocaliban.loja.services.exceptions.IntegridadeDeDadosException;
 import com.leocaliban.loja.services.exceptions.ObjetoNaoEncontradoException;
 
 @Service
@@ -32,5 +34,15 @@ public class CategoriaService {
 		//Verificação se o id existe
 		buscar(obj.getId());
 		return repository.save(obj);
+	}
+	
+	public void excluir(Long id) {
+		buscar(id);
+		try {
+			repository.delete(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new IntegridadeDeDadosException("Não é possível excluir uma categoria que possui produtos.");
+		}
 	}
 }
