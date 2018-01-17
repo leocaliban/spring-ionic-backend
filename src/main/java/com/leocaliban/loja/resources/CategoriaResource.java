@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +36,8 @@ public class CategoriaResource {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	//@RequestBody converte json em java
-	public ResponseEntity<Void> salvar(@RequestBody Categoria obj){
+	public ResponseEntity<Void> salvar(@Valid @RequestBody CategoriaDTO objDTO){
+		Categoria obj = service.fromDTO(objDTO);
 		obj = service.salvar(obj);
 		//Retorno da uri de sucesso ao criar 201
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -44,7 +47,8 @@ public class CategoriaResource {
 	}
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
-	public ResponseEntity<Void> editar(@RequestBody Categoria obj, @PathVariable Long id){
+	public ResponseEntity<Void> editar(@Valid @RequestBody CategoriaDTO objDTO, @PathVariable Long id){
+		Categoria obj = service.fromDTO(objDTO);
 		obj.setId(id);
 		obj = service.editar(obj);
 		//Sucesso 204 não precisa de uri retorno 

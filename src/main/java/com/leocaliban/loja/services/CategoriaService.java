@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.leocaliban.loja.domain.Categoria;
+import com.leocaliban.loja.dto.CategoriaDTO;
 import com.leocaliban.loja.repositories.CategoriaRepository;
 import com.leocaliban.loja.services.exceptions.IntegridadeDeDadosException;
 import com.leocaliban.loja.services.exceptions.ObjetoNaoEncontradoException;
@@ -59,5 +60,9 @@ public class CategoriaService {
 	public Page<Categoria> buscarPagina(Integer pagina, Integer linhasPorPagina, String ordenarPor, String direcao){
 		PageRequest pageRequest = new PageRequest(pagina, linhasPorPagina, Direction.valueOf(direcao), ordenarPor);
 		return repository.findAll(pageRequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDTO objDTO) {
+		return new Categoria(objDTO.getId(), objDTO.getNome());
 	}
 }
