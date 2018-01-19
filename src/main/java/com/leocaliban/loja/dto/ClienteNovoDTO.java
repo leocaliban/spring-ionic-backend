@@ -2,27 +2,50 @@ package com.leocaliban.loja.dto;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.leocaliban.loja.services.validation.ClienteInsert;
+
 /**
  * Classe DTO que fará a manipulação indiretamente dos atributos das classes 
  * de domínio que se relacionam na hora de criar um cliente
  * @author Leocaliban
  *
  */
+@ClienteInsert
 public class ClienteNovoDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@NotEmpty(message="Nome é obrigatório.")
+	@Length(min=5, max=120, message="O nome deve conter entre 5 e 120 caracteres.")
 	private String nome;
+	
+	@NotEmpty(message="Email é obrigatório.")
+	@Email(message="Email inválido.")
 	private String email;
+	
+	@NotEmpty(message="Preenchimento é obrigatório.")
+	
 	private String cpfOuCnpj;
+	
+	
 	private Integer tipo;
 	
+	@NotEmpty(message="Preenchimento é obrigatório.")
 	private String rua;
+	
+	@NotEmpty(message="Preenchimento é obrigatório.")
 	private String numero;
 	private String bairro;
+	
+	@NotEmpty(message="Preenchimento é obrigatório.")
 	private String cep;
 	private String complemento;
 	
+	@NotEmpty(message="Preenchimento é obrigatório.")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
