@@ -33,7 +33,6 @@ public class ClienteService {
 	public Cliente editar(Cliente obj) {
 		Cliente novoCliente = buscar(obj.getId());
 		atualizarObjeto(novoCliente, obj);
-		buscar(obj.getId());
 		return repository.save(novoCliente);
 	}
 	

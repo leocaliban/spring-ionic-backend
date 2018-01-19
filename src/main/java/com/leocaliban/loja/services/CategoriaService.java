@@ -37,9 +37,9 @@ public class CategoriaService {
 	}
 	
 	public Categoria editar(Categoria obj) {
-		//Verificação se o id existe
-		buscar(obj.getId());
-		return repository.save(obj);
+		Categoria novaCategoria = buscar(obj.getId());
+		atualizarObjeto(novaCategoria, obj);
+		return repository.save(novaCategoria);
 	}
 	
 	public void excluir(Long id) {
@@ -64,5 +64,14 @@ public class CategoriaService {
 	
 	public Categoria fromDTO(CategoriaDTO objDTO) {
 		return new Categoria(objDTO.getId(), objDTO.getNome());
+	}
+	
+	/**
+	 * Método auxiliar para atualizar os dados do cliente sem perdê-los
+	 * @param novoCliente Cliente criado que será salvo como atualização
+	 * @param obj Cliente recuperado do banco
+	 */
+	private void atualizarObjeto(Categoria novaCategoria, Categoria obj) {
+		novaCategoria.setNome(obj.getNome());
 	}
 }
