@@ -54,6 +54,18 @@ public class Pedido implements Serializable {
 		this.cliente = cliente;
 		this.enderecoEntrega = enderecoEntrega;
 	}
+	
+	/**
+	 * Gera o valor total do pedido através da soma dos itens do pedido.
+	 * @return Valor total do pedido.
+	 */
+	public double getValorTotal() {
+		double soma = 0.0;
+		for (ItemPedido item : itens) {
+			soma = soma + item.getSubtotal();
+		}
+		return soma;
+	}
 
 	public Long getId() {
 		return id;
