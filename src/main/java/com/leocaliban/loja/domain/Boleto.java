@@ -5,9 +5,11 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.leocaliban.loja.domain.enums.EstadoPagamento;
 
 @Entity
+@JsonTypeName("pagamentoComBoleto") //complementa o @JsonTypeInfo em Pagamento indicanto o tipo de pagamento
 public class Boleto extends Pagamento{
 	
 	private static final long serialVersionUID = 1L;
