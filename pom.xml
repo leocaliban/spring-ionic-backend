@@ -57,10 +57,15 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>	
+		
+		<!-- Email na aplicação -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		
 	</dependencies>
 	
-	
-
 	<build>
 		<plugins>
 			<plugin>
