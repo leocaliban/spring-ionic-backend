@@ -9,6 +9,7 @@ import com.leocaliban.loja.domain.Boleto;
 import com.leocaliban.loja.domain.ItemPedido;
 import com.leocaliban.loja.domain.Pedido;
 import com.leocaliban.loja.domain.enums.EstadoPagamento;
+import com.leocaliban.loja.repositories.ClienteRepository;
 import com.leocaliban.loja.repositories.ItemPedidoRepository;
 import com.leocaliban.loja.repositories.PagamentoRepository;
 import com.leocaliban.loja.repositories.PedidoRepository;
@@ -34,6 +35,9 @@ public class PedidoService {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
 	public Pedido buscar(Long id) {
 		Pedido obj = repository.findOne(id);
 		if (obj == null) {
@@ -46,6 +50,7 @@ public class PedidoService {
 	public Pedido salvar(Pedido obj) {
 		obj.setId(null);
 		obj.setInstanteCompra(new Date());
+		obj.setCliente(clienteRepository.findOne(obj.getCliente().getId()));
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
 		if(obj.getPagamento() instanceof Boleto) {
@@ -57,7 +62,8 @@ public class PedidoService {
 		
 		for (ItemPedido itemPedido : obj.getItens()) {
 			itemPedido.setDesconto(0.0);
-			itemPedido.setPreco(produtoRepository.findOne(itemPedido.getProduto().getId()).getPreco());
+			itemPedido.setProduto(produtoRepository.findOne(itemPedido.getProduto().getId()));
+			itemPedido.setPreco(itemPedido.getProduto().getPreco());
 			itemPedido.setPedido(obj);
 		}
 		itemPedidoRepository.save(obj.getItens());
